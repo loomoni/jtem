@@ -29,6 +29,7 @@
         'views/asset_assign.xml',
         'views/asset_disposal.xml',
         'views/asset_reevaluation.xml',
+        'views/brand_remove.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
