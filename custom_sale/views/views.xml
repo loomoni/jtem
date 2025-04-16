@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit the invoice to add print button -->
+<!--        <record id="view_invoice_form_inherited" model="ir.ui.view">-->
+<!--            <field name="name">account.invoice.form.inherit</field>-->
+<!--            <field name="model">account.invoice</field>-->
+<!--            <field name="inherit_id" ref="account.invoice_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//form/header/button[@name='action_invoice_sent']" position="replace">-->
+<!--                    <button string="Print Invoice" name="action_print_invoice" type="object" class="oe_highlight"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Inherit the invoice to add print button in supplier form -->
+<!--        <record id="view_invoice_supplier_form_inherited" model="ir.ui.view">-->
+<!--            <field name="name">account.invoice.supplier.form.inherit</field>-->
+<!--            <field name="model">account.invoice</field>-->
+<!--            <field name="inherit_id" ref="account.invoice_supplier_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//form/header/button[@name='action_invoice_open']" position="after">-->
+<!--                    <button string="Print Invoice" name="action_print_invoice" type="object" class="oe_highlight"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Inherit Delivery order print Delivery not -->
+<!--        <record id="view_stock_picking_form_inherited" model="ir.ui.view">-->
+<!--            <field name="name">stock.picking.form.inherit</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="inherit_id" ref="stock.view_picking_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//form/header/button[@name='button_scrap']" position="replace">-->
+<!--                    <button string="Print Delivery Note" name="print_delivery_note_action" type="object"-->
+<!--                            class="oe_highlight"/>-->
+<!--                    <button string="Return to draft" name="return_to_draft" type="object" class="oe_highlight"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Inherit the sale.order form view -->
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button name="print_quotation" position="attributes">
+                    <attribute name="string">Print Proforma</attribute>
+                </button>
+                <button name="action_quotation_send" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                   <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="payment_terms"/>
+                    <field name="delivery_terms"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit the product template form view -->
+<!--        <record id="view_product_template_form_inherit_id" model="ir.ui.view">-->
+<!--            <field name="name">product.template.form.inherit</field>-->
+<!--            <field name="model">product.template</field>-->
+<!--            <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='default_code']" position="before">-->
+<!--                    <field name="uom_id" create="1" edit="1"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Inherit customer view form view -->
+        <record id="view_res_partner_form_inherit_id" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="vrn"/>
+                </xpath>
+            </field>
+        </record>
+
+                <!-- Inherit customer view form view -->
+<!--        <record id="view_stock_picking_inherit_id" model="ir.ui.view">-->
+<!--            <field name="name">stock.picking.form.inherit</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="inherit_id" ref="stock.view_picking_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='date_done']" position="after">-->
+<!--                    <field name="sale_person_user_id"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

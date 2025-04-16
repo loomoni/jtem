@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="proforma_invoice_print_pdf_id" model="ir.actions.report">
+            <field name="name">Proforma Invoice</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_sale.proforma_invoice_print_pdf</field>
+            <field name="report_file">custom_sale.proforma_invoice_print_pdf</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="invoice_print_pdf_id" model="ir.actions.report">
+            <field name="name">Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_sale.invoice_print_pdf</field>
+            <field name="report_file">custom_sale.invoice_print_pdf</field>
+            <field name="binding_model_id" ref="model_account_invoice"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        <record id="delivery_note_print_pdf_id" model="ir.actions.report">-->
+<!--            <field name="name">Delivery Note</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">custom_sale.delivery_note_print_pdf</field>-->
+<!--            <field name="report_file">custom_sale.delivery_note_print_pdf</field>-->
+<!--            <field name="binding_model_id" ref="model_stock_picking"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>
