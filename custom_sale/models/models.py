@@ -8,7 +8,7 @@ from odoo import fields, models, api
 class SaleOrderCustom(models.Model):
     _inherit = 'sale.order'
 
-    payment_terms = fields.Char(string="Payment Terms", store=True)
+    payment_terms = fields.Many2one(comodel_name="account.payment.term", string="Payment Terms", store=True)
     delivery_terms = fields.Char(string="Delivery Terms", store=True)
 
     def _default_reference(self):
@@ -84,6 +84,12 @@ class AccountInvoice(models.Model):
             'website': company.website,
             'logo': BytesIO(logo_data)
         }
+
+
+class CustomSaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    unit_measures = fields.Char(string='Unit of Measure', required=False)
 
 
 # class StockPickingInherit(models.Model):
