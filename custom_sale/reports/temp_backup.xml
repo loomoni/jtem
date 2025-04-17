@@ -1,323 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <template id="proforma_invoice_print_pdf">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <style>
-                    .page {
-                    page-break-before: always;
-                    margin: 0;
-                    }
-                    .last-page {
-                    page-break-before: auto; /* Ensure no page break before the last page */
-                    margin-top: 85%;
-                    }
-                </style>
+                <div style="margin-top: 0;">
+                    <table
+                            class="table table-condensed"
+                            style="width: 94%; border-collapse: collapse; margin-left: 45px;">
+                        <tr>
+                            <td colspan="3" style="padding: 2px; text-align: right;">
+                                <div class="text-left">
+                                    <img t-if="o.company_id.logo"
+                                         style="max-height:180px; max-width: 100%; width:auto;"
+                                         t-att-src="'data:image/png;base64,'+o.company_id.logo.decode('utf-8')"
+                                         alt="Company Logo"/>
+                                </div>
 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <strong>
+                                    <h2>PROFORMA INVOICE</h2>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top:: 8px; width: 15%;">
+                                NUMBER
+                            </td>
+                            <td style="padding-top:: 8px; width: 3%;">
+                                <strong>:</strong>
+                            </td>
+                            <td style="padding-top:: 8px;">
+                                <span t-field="o.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top:: 8px; width: 15%;">
+                                ISSUE DATE
+                            </td>
+                            <td style="padding-top:: 8px; width: 3%;">
+                                <strong>:</strong>
+                            </td>
+                            <td style="padding-top: 8px;">
+                                <span t-field="o.date_order"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top:: 8px; width: 15%;">
+                                DUE DATE
+                            </td>
+                            <td style="padding-top: 8px;  width: 3%;">
+                                <strong>:</strong>
+                            </td>
+                            <td style="padding-top:: 8px; ">
+                                <span t-field="o.validity_date"/>
+                            </td>
+                        </tr>
+                    </table>
 
-                <div style="margin-top: 0; padding-bottom: 50px">
-                    <div style="text-align: center;">
-                        <!-- Blue horizontal line above the title -->
-                        <hr style="border-top: 5px solid blue; width: 30%; margin-right: 10px; display: inline-block;"></hr>
-                        <!-- Invoice title -->
-                        <h1 style="font-size: 25px; color: blue; display: inline-block;">PROFORMA INVOICE</h1>
-                        <!-- Blue horizontal line below the title -->
-                        <hr style="border-top: 5px solid blue; width: 30%; margin-left: 10px; display: inline-block;"></hr>
-                    </div>
-                    <div class="content">
+                    <br/>
 
-                        <!-- Your content goes here -->
+                    <table
+                            class="table table-condensed"
+                            style="width: 94%; border-collapse: collapse; margin-left: 45px;">
+                        <tr>
+                            <td>
+                                <h3>
+                                    <strong>FROM :</strong>
+                                    <br/>
+                                    <t t-esc="o.company_info().get('name')"/>
+                                </h3>
 
-                        <table style="margin-left: 40px; width:100%;"
-                               class="table table-condensed">
-                            <tr>
-                                <td style="width: 30%;">
-                                    <div style="font-size: 20px; color: blue;">
-                                        <strong>
-                                            <t t-esc="o.company_info().get('name')"/>
-                                        </strong>
-                                    </div>
-                                </td>
-                                <td style="width: 30%; text-align: center;"></td>
-                                <td style="width: 7%;">Date:</td>
-                                <td style="width: 30%;">
-                                    <span t-field="o.quotation_date"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">TIN:
-                                        <t t-esc="o.company_info().get('vat')"/>
-                                    </div>
-                                </td>
-                                <td rowspan="7" style="width: 30%;">
-                                    <div class="text-center pb-3 border-bottom mb-4">
-                                        <img t-if="o.company_id.logo"
-                                             style="max-height:180px; max-width: 100%; width:auto"
-                                             t-att-src="'data:image/png;base64,'+o.company_id.logo.decode('utf-8')"
-                                             alt="Company Logo"/>
-                                    </div>
-
-                                </td>
-                                <td style="width: 10%;">Quote No.:</td>
-                                <td style="width: 30%;">
-                                    <t t-esc="o.proforma_sequence"/>
-                                </td>
-
-                            </tr>
-                            <tr style="">
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">VRN:
-                                        <t t-esc=" o.company_info().get('vrn')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-
-                                <td style="width: 10%;">Salesperson:</td>
-                                <td style="width: 30%;">
-                                    <t t-esc="o.user_id.name"/>
-                                </td>
-                            </tr>
-                            <tr style="">
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">
-                                        <t t-esc=" o.company_info().get('street')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr style="">
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">
-                                        <t t-esc=" o.company_info().get('street2')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr style="">
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">
-                                        <t t-esc="o.company_info().get('phone')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr style="">
-                                <td style="width: 30%;  margin-left: 30px;">
-                                    <div style="font-size: 20px;">
-                                        <t t-esc="o.company_info().get('email')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-size: 20px;">
-                                        <t t-esc=" o.company_info().get('website')"/>
-                                    </div>
-                                </td>
-                                <!--                                <td style="width: 30%; text-align: center;">LOGO</td>-->
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr style="height: 30px">
-                                <td>
-
-                                </td>
-                                <td style="width: 30%; text-align: center;"></td>
-                                <td style="width: 10%;"></td>
-                                <td style="width: 30%;"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
+                            </td>
+                            <td style="width: 2%"></td>
+                            <td>
+                                <h3>
+                                    <strong>TO :</strong>
+                                    <b/>
+                                    <br/>
                                     <span t-field="o.partner_id.name"/>
-                                </td>
+                                </h3>
+                            </td>
+                        </tr>
+
+                        <tr style="padding-top: 10px;">
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>VRN :</strong>
+                                <t t-esc=" o.company_info().get('vrn')"/>
+                            </td>
+                            <td style="width: 2%"></td>
+                            <td>
+                                <strong>VRN :</strong>
+                                <br/>
+                                <span t-field="o.partner_id.vrn"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>TIN :</strong>
+                                <t t-esc="o.company_info().get('vat')"/>
+                            </td>
+                            <td style="width: 2%"></td>
+                            <td>
+                                <strong>TIN :</strong>
+                                <span t-field="o.partner_id.vat"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>PHYSICAL ADDRESS:</strong>
+                                <br/>
+                                <t t-esc="o.company_info().get('street')"/>
+                                <br/>
+                                <t t-esc="o.company_info().get('street2')"/>
+                            </td>
+                            <td style="width: 2%"></td>
+                            <td>
+                                <strong>PHYSICAL ADDRESS:</strong>
+                                <br/>
+                                <span t-field="o.partner_id.street"/>
+                                <br/>
+                                <span t-field="o.partner_id.street2"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <br/>
+                    <table style="width: 94%; border-collapse: collapse; margin-left: 45px; border: 1px solid #000;">
+                        <thead>
+                            <tr style="font-size: 20px;">
+                                <th style="border: 1px solid #000; color: #1A4089; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                                    Description
+                                </th>
+                                <th style="border: 1px solid #000;  width: 8%;  color: #1A4089; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                    Qty
+                                </th>
+                                <th style="border: 1px solid #000;  width: 10%;  color: #1A4089; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                                    UOM
+                                </th>
+                                <th style="border: 1px solid #000;  width: 16%;  color: #1A4089; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                    Price
+                                </th>
+                                <th style="border: 1px solid #000;  width: 18%;  color: #1A4089; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                    Total
+                                </th>
                             </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <span>
-                                        TIN:
-                                    </span>
-                                    <span t-field="o.partner_id.vat"/>
-                                    <span>
-                                        VRN:
-                                    </span>
-                                    <span t-field="o.partner_id.vrn"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span t-field="o.partner_id.street"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span t-field="o.partner_id.street2"/>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-                        <table style="width: 94%; border-collapse: collapse; margin-left: 45px; border: 1px solid #000;">
-                            <thead>
-                                <tr style="font-size: 20px;">
-                                    <th style="border: 1px solid #000; color: blue; padding: 8px; text-align: left; background-color: #f2f2f2;">
-                                        Description
-                                    </th>
-                                    <th style="border: 1px solid #000;  width: 10%;  color: blue; padding: 8px; text-align: left; background-color: #f2f2f2;">
-                                        UOM
-                                    </th>
-                                    <th style="border: 1px solid #000;  width: 8%;  color: blue; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                        Qty
-                                    </th>
-                                    <th style="border: 1px solid #000;  width: 16%;  color: blue; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                        Price
-                                    </th>
-                                    <th style="border: 1px solid #000;  width: 18%;  color: blue; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                        Total
-                                    </th>
+                        </thead>
+                        <tbody>
+                            <t t-set="odd_even" t-value="0"/>
+                            <t t-foreach="o.order_line" t-as="line">
+                                <t t-set="odd_even" t-value="1 - odd_even"/>
+                                <tr>
+
+                                    <t t-if="odd_even == 1">
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #ffffff;">
+
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
+                                            <span t-esc="line.product_uom_qty"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #ffffff;">
+                                            <span t-field="line.unit_measures"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="odd_even == 0">
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color:  #f2f2f2;">
+                                            <span t-esc="line.product_uom_qty"/>
+                                        </td>
+                                           <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color:  #f2f2f2;">
+                                            <span t-field="line.unit_measures"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000;padding: 8px; text-align: right; background-color:  #f2f2f2;">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color:  #f2f2f2;">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </t>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <t t-set="odd_even" t-value="0"/>
-                                <t t-foreach="o.order_line" t-as="line">
-                                    <t t-set="odd_even" t-value="1 - odd_even"/>
-                                    <tr>
+                            </t>
 
-                                        <t t-if="odd_even == 1">
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #ffffff;">
+                        </tbody>
+                    </table>
+                    <br/>
+                    <table style="width: 99%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                Total Exclusive
+                            </td>
+                            <td style="border-top: 1px solid #000; border-right: 1px solid #000; width: 18%; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                <span t-field="o.amount_untaxed"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                Tax Total
+                            </td>
+                            <td style="border-top: 1px solid #000; border-right: 1px solid #000; width: 18%; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                <span t-field="o.amount_tax"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
+                            </td>
+                            <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
+                                <strong>TOTAL</strong>
+                            </td>
+                            <td style="width: 18%; padding: 8px; border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; text-align: right; background-color: #f2f2f2;">
+                                <strong>
+                                    <span t-field="o.amount_total"/>
+                                </strong>
+                            </td>
+                        </tr>
+                    </table>
 
-                                                <span t-field="line.product_id.name"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #ffffff;">
-                                                <span t-field="line.product_id.uom_id.name"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
-                                                <span t-esc="line.product_uom_qty"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
-                                                <span t-field="line.price_unit"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color: #ffffff;">
-                                                <span t-field="line.price_subtotal"/>
-                                            </td>
-                                        </t>
-                                        <t t-if="odd_even == 0">
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color: #f2f2f2;">
-                                                <span t-field="line.product_id.name"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: left; background-color:  #f2f2f2;">
-                                                <span t-field="line.product_id.uom_id.name"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color:  #f2f2f2;">
-                                                <span t-esc="line.product_uom_qty"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000;padding: 8px; text-align: right; background-color:  #f2f2f2;">
-                                                <span t-field="line.price_unit"/>
-                                            </td>
-                                            <td style="border-right: 1px solid #000; padding: 8px; text-align: right; background-color:  #f2f2f2;">
-                                                <span t-field="line.price_subtotal"/>
-                                            </td>
-                                        </t>
-                                    </tr>
-                                </t>
-
-                            </tbody>
-                        </table>
-                        <br/>
-                        <table style="width: 99%; border-collapse: collapse;">
-                            <tr>
-                                <td style="padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                    Total ex VAT
-                                </td>
-                                <td style="border-top: 1px solid #000; border-right: 1px solid #000; width: 18%; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                    <span t-field="o.amount_untaxed"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                    Tax Total
-                                </td>
-                                <td style="border-top: 1px solid #000; border-right: 1px solid #000; width: 18%; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                    <span t-field="o.amount_tax"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 10%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="width: 8%; padding: 8px; text-align: left; background-color: #ffffff;">
-                                </td>
-                                <td style="border-left: 1px solid #000; border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; width: 16%; padding: 8px; text-align: right; background-color: #f2f2f2;">
-                                    <strong>TOTAL</strong>
-                                </td>
-                                <td style="width: 18%; padding: 8px; border-right: 1px solid #000; border-top: 1px solid #000; border-bottom: 1px solid #000; text-align: right; background-color: #f2f2f2;">
-                                    <strong>
-                                        <span t-field="o.amount_total"/>
-                                    </strong>
-                                </td>
-                            </tr>
-                        </table>
-
-                    </div>
-                </div>
-
-                <div class="page last-page">
-                    <!-- Empty div to trigger page break when content exceeds height -->
-                </div>
-
-                <div class="page">
-                    <div style="position: absolute; bottom: 125px; left: 45px; right: 40px; font-size: 18px;">
-                        <strong>
-                            <span t-field="o.payment_terms"/>
-                        </strong>
-                        <br/>
-                    </div>
-                    <div style="position: absolute; bottom: 100px; left: 45px; right: 40px; font-size: 18px;">
-                        <strong>
-                            <span t-field="o.delivery_terms"/>
-                        </strong>
-                        <br/>
+                    <div>
+                        <span t-field="o.payment_terms.note"/>
                     </div>
 
-                    <div t-if="o.company_id.id == 1"
-                         style="position: absolute; bottom: 60px; left: 45px; right: 40px; font-size: 13px;">
-                        <strong>BANK: NMB 24710014112 #CYBERTZ CIVIL COMPANY LIMITED</strong>
-                        <br/>
-                        <strong>BANK: CRDB 015C840374600 #CYBERTZ COMPANY LTD</strong>
-                    </div>
-                    <div t-if="o.company_id.id == 2"
-                         style="position: absolute; bottom: 60px; left: 45px; right: 40px; font-size: 18px;">
-                        <strong>BANK: NMB 24710005762 #FARMING CITY COMPANY LIMITED</strong>
-                    </div>
-
-                    <div style="position: absolute; bottom: 25px; left: 45px; right: 40px; font-size: 19px;">
-                        <strong>Thank you for your business.</strong>
-                    </div>
-                    <div style="position: absolute; bottom: 10px; left: 48px; right: 20px;">
-                        <div style="border-top: 6px solid red;"></div>
-                    </div>
                 </div>
             </t>
         </t>

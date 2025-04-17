@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_invoice_form_contract_fields" model="ir.ui.view">
+        <field name="name">account.invoice.form.contract.fields</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="contract_start_date"/>
+                <field name="contract_end_date"/>
+                <field name="contract_total_days"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
