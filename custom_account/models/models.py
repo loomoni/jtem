@@ -20,3 +20,10 @@ class AccountInvoice(models.Model):
                 record.contract_total_days = delta.days + 1 if delta.days >= 0 else 0
             else:
                 record.contract_total_days = 0
+
+
+class CustomSaleOrderLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    unit_measures = fields.Char(string='Unit of Measure', required=False)
+
