@@ -107,21 +107,21 @@
                             style="width: 94%; border-collapse: collapse; margin-left: 45px;">
                         <tr>
                             <td>
-                                <h5>
+                                <h4>
                                     <strong>FROM :</strong>
                                     <br/>
                                     <t t-esc="o.company_info().get('name')"/>
-                                </h5>
+                                </h4>
 
                             </td>
                             <td style="width: 2%"></td>
                             <td>
-                                <h5>
+                                <h4>
                                     <strong>TO :</strong>
                                     <b/>
                                     <br/>
                                     <span t-field="o.partner_id.name"/>
-                                </h5>
+                                </h4>
                             </td>
                         </tr>
 
@@ -418,21 +418,21 @@
                             style="width: 94%; border-collapse: collapse; margin-left: 45px;">
                         <tr>
                             <td>
-                                <h5>
+                                <h4>
                                     <strong>FROM :</strong>
                                     <br/>
                                     <t t-esc="o.company_info().get('name')"/>
-                                </h5>
+                                </h4>
 
                             </td>
                             <td style="width: 2%"></td>
                             <td>
-                                <h5>
+                                <h4>
                                     <strong>TO :</strong>
                                     <b/>
                                     <br/>
                                     <span t-field="o.partner_id.name"/>
-                                </h5>
+                                </h4>
                             </td>
                         </tr>
 
