@@ -39,11 +39,11 @@
                 </style>
 
                 <div class="header" style="position: absolute; left: 0;">
-                    <img class="header-img" t-att-src="'/custom_sale/static/img/header3.JPG'"
+                    <img class="header-img" t-att-src="'/custom_sale/static/img/header4.JPG'"
                          alt="Header Image"/>
                 </div>
 
-                <div style="margin-top: 0; font-family: 'Trebuchet MS', sans-serif; font-size: 14px;">
+                <div style="margin-top: 0; font-family: 'Trebuchet MS'; font-size: 14px;">
                     <table
                             class="table table-condensed"
                             style="width: 94%; border-collapse: collapse; margin-left: 45px;">
@@ -196,7 +196,7 @@
                         <tbody>
 
                             <t t-set="odd_even" t-value="0"/>
-                            <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-foreach="o.order_line" t-as="line">
                                 <t t-set="odd_even" t-value="1 - odd_even"/>
                                 <t t-if="line.display_type == 'line_section'">
                                     <tr>
@@ -350,11 +350,11 @@
                 </style>
 
                 <div class="header" style="position: absolute; left: 0;">
-                    <img class="header-img" t-att-src="'/custom_sale/static/img/header3.JPG'"
+                    <img class="header-img" t-att-src="'/custom_sale/static/img/header4.JPG'"
                          alt="Header Image"/>
                 </div>
 
-                <div style="margin-top: 0; font-family: 'Trebuchet MS', sans-serif; font-size: 14px;">
+                <div style="margin-top: 0; font-family: 'Trebuchet MS'; font-size: 14px;">
                     <table
                             class="table table-condensed"
                             style="width: 94%; border-collapse: collapse; margin-left: 45px;">
