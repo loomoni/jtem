@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+*.pyo
+.DS_Store
+*.log
+*.zip
+*.dump
+*.bak
+.env
+*.sock
+/deploy/secrets/

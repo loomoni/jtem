@@ -1,0 +1,19 @@
+[Unit]
+Description=Odoo 12 Service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+SyslogIdentifier=odoo12
+PermissionsStartOnly=true
+User=odoo
+Group=odoo
+ExecStart=/opt/odoo/venv/bin/python3 /opt/odoo/odoo-server/odoo-bin \
+    --config=/etc/odoo/odoo.conf \
+    --logfile=/var/log/odoo/odoo.log
+StandardOutput=journal+console
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
